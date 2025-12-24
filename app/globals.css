@@ -7,11 +7,21 @@
   --accent-dark: #654321;
   --earth: #6b5b4f;
   --sky: #4a6fa5;
+  
+  /* New Brand Colors */
+  --midnight-roast: #2B2118;
+  --golden-hour: #F4A261;
+  --sky-mist: #E9F1F2;
+  --wing-teal: #2A9D8F;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-midnight-roast: var(--midnight-roast);
+  --color-golden-hour: var(--golden-hour);
+  --color-sky-mist: var(--sky-mist);
+  --color-wing-teal: var(--wing-teal);
   --font-sans: var(--font-inter);
 }
 

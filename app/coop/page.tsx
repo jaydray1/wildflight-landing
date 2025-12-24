@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function CoOpPage() {
@@ -108,93 +109,97 @@ export default function CoOpPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-amber-200/50">
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#E9F1F2]/50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tight text-amber-900">
+          <Link href="/" className="text-2xl font-bold tracking-tight text-[#2B2118]">
             WILDFLIGHT
           </Link>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-700">
-            <Link href="/#roasts" className="hover:text-amber-800 transition-colors">Roasts</Link>
-            <Link href="/#coop" className="hover:text-amber-800 transition-colors">Co-Op Program</Link>
-            <Link href="/#story" className="hover:text-amber-800 transition-colors">Our Story</Link>
-            <Link href="/#contact" className="hover:text-amber-800 transition-colors">Contact</Link>
-            <button className="bg-amber-800 text-white px-6 py-2 rounded-full hover:bg-amber-900 transition-colors">
-              Order Now
-            </button>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#2B2118]">
+            <Link href="/about" className="hover:text-[#F4A261] transition-colors">About</Link>
+            <Link href="/coop" className="hover:text-[#F4A261] transition-colors">House Batch Program</Link>
+            <Link href="/#contact" className="hover:text-[#F4A261] transition-colors">Contact</Link>
+            <Link href="/coop" className="bg-[#F4A261] text-white px-6 py-2 rounded-full hover:bg-[#E89452] transition-colors">
+              Get Started
+            </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h1 className="text-6xl md:text-7xl font-bold text-stone-900 leading-tight">
-            A local coffee co-op for people who drink a lot of good coffee
-          </h1>
-          <div className="flex flex-col items-center gap-3 pt-2">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 rounded-full text-stone-800 font-medium">
-              Salt Lake area • pickup-first (free)
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-6xl md:text-7xl font-bold text-[#2B2118] leading-tight">
+                  Local coffee co-op for serious coffee drinkers
+                </h1>
+                <p className="text-xl text-[#2B2118]/80 leading-relaxed max-w-lg">
+                  Get fresh roasted coffee monthly at wholesale prices—no subscription, no commitment. Salt Lake area only.
+                </p>
+                <div className="flex flex-col gap-2 pt-2">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F4A261]/20 rounded-full text-[#2B2118] font-medium w-fit text-sm">
+                    Salt Lake area • pickup-first (free)
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E9F1F2] rounded-full text-[#2B2118] font-medium text-xs w-fit">
+                    Monthly batch ordering — order by Thursday, pickup Saturday–Tuesday
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={() => {
+                      setShowForm(true);
+                      if (typeof window !== "undefined" && (window as any).dataLayer) {
+                        (window as any).dataLayer.push({
+                          event: "coop_join_click",
+                          location: "hero",
+                        });
+                      }
+                      document.getElementById("join-form")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="bg-[#F4A261] text-white px-12 py-5 rounded-full text-xl font-semibold hover:bg-[#E89452] transition-all transform hover:scale-105 shadow-lg"
+                    data-event="coop_join_click"
+                  >
+                    Get started (local pickup)
+                  </button>
+                  <button
+                    onClick={() => {
+                      document.getElementById("house-coop")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="border-2 border-[#F4A261] text-[#F4A261] px-12 py-5 rounded-full text-xl font-semibold hover:bg-[#F4A261]/10 transition-all"
+                  >
+                    See sizes & pricing
+                  </button>
+                </div>
+                <p className="text-[#2B2118]/80 text-lg">
+                  2 minutes • monthly batch ordering • pickup is free
+                </p>
+              </div>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 rounded-full text-stone-700 font-medium text-sm">
-              Monthly batch ordering — order by Thursday, pickup Saturday–Tuesday
+            <div className="relative">
+              <div className="relative p-4">
+                <div className="aspect-square rounded-3xl shadow-2xl overflow-hidden ring-4 ring-white/50">
+                  <Image
+                    src="/images/coffee-hero.jpg"
+                    alt="Coffee beans and brewing equipment"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col items-center gap-4 text-xl text-stone-700">
-            <div className="flex items-center gap-2">
-              <span className="text-amber-800">✓</span>
-              <span>Fresh roasted monthly, straight from our kitchen</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-amber-800">✓</span>
-              <span>Lower cost via bulk buying—no retail overhead, no shipping</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-amber-800">✓</span>
-              <span>A real relationship with your local roaster</span>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button
-                onClick={() => {
-                  setShowForm(true);
-                  if (typeof window !== "undefined" && (window as any).dataLayer) {
-                    (window as any).dataLayer.push({
-                      event: "coop_join_click",
-                      location: "hero",
-                    });
-                  }
-                  document.getElementById("join-form")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-amber-800 text-white px-12 py-5 rounded-full text-xl font-semibold hover:bg-amber-900 transition-all shadow-lg transform hover:scale-105"
-                data-event="coop_join_click"
-              >
-                Get started (local pickup)
-              </button>
-              <button
-                onClick={() => {
-                  document.getElementById("house-coop")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="border-2 border-amber-800 text-amber-800 px-12 py-5 rounded-full text-xl font-semibold hover:bg-amber-50 transition-all"
-              >
-                See sizes & pricing
-              </button>
-            </div>
-            <p className="text-stone-600 text-lg">
-              2 minutes • monthly batch ordering • pickup is free
-            </p>
-            <p className="text-sm text-stone-500 max-w-xl mx-auto">
-              Salt Lake area only. We keep it local—shipping would destroy both the savings and the community vibe.
-            </p>
           </div>
         </div>
       </section>
 
       {/* Why This Exists */}
-      <section className="py-16 px-6 bg-stone-50">
+      <section className="py-16 px-6 bg-[#E9F1F2]">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-bold text-stone-900">Why This Exists</h2>
-          <div className="text-lg text-stone-700 leading-relaxed space-y-4">
+          <h2 className="text-3xl font-bold text-[#2B2118]">Why This Exists</h2>
+          <div className="text-lg text-[#2B2118] leading-relaxed space-y-4">
             <p>
               Specialty coffee is expensive because of packaging, shipping, distribution, and retail markup. Every bag costs money to design, print, fill, and move across the country.
             </p>
@@ -209,36 +214,36 @@ export default function CoOpPage() {
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">How It Works</h2>
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">How It Works</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100">
-              <div className="w-16 h-16 rounded-full bg-amber-800 text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
+              <div className="w-16 h-16 rounded-full bg-[#2A9D8F] text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 1
               </div>
-              <h3 className="text-2xl font-bold text-stone-900 mb-4 text-center">Choose how much + roast preference</h3>
-              <p className="text-stone-600 leading-relaxed text-center">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-4 text-center">Choose how much + roast preference</h3>
+              <p className="text-[#2B2118]/80 leading-relaxed text-center">
                 Pick your monthly amount (2, 5, or 10 lbs) and tell us your preferred roast level—light, medium, or dark. That's it.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100">
-              <div className="w-16 h-16 rounded-full bg-amber-800 text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
+              <div className="w-16 h-16 rounded-full bg-[#2A9D8F] text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 2
               </div>
-              <h3 className="text-2xl font-bold text-stone-900 mb-4 text-center">We roast on a predictable cadence</h3>
-              <p className="text-stone-600 leading-relaxed text-center">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-4 text-center">We roast on a predictable cadence</h3>
+              <p className="text-[#2B2118]/80 leading-relaxed text-center">
                 We roast for the co-op on the first Saturday of every month. Order cutoff is Thursday night. Pickup window: Saturday–Tuesday. You'll get a text when your coffee is ready.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100">
-              <div className="w-16 h-16 rounded-full bg-amber-800 text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
+              <div className="w-16 h-16 rounded-full bg-[#2A9D8F] text-white flex items-center justify-center text-3xl font-bold mb-6 mx-auto">
                 3
               </div>
-              <h3 className="text-2xl font-bold text-stone-900 mb-4 text-center">Pick up locally</h3>
-              <p className="text-stone-600 leading-relaxed text-center">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-4 text-center">Pick up locally</h3>
+              <p className="text-[#2B2118]/80 leading-relaxed text-center">
                 Free pickup from our Salt Lake City home, or we can deliver locally for a small fee. Either way, you're supporting a local roaster and getting the freshest coffee possible.
               </p>
             </div>
@@ -247,11 +252,11 @@ export default function CoOpPage() {
       </section>
 
       {/* House Batch Program Section */}
-      <section id="house-coop" className="py-20 px-6 bg-amber-50/30">
+      <section id="house-coop" className="py-20 px-6 bg-[#E9F1F2]/30">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold text-stone-900 mb-4">House Batch Program</h2>
-            <p className="text-xl text-stone-600 max-w-2xl mx-auto">
+            <h2 className="text-5xl font-bold text-[#2B2118] mb-4">House Batch Program</h2>
+            <p className="text-xl text-[#2B2118]/80 max-w-2xl mx-auto">
               Monthly batch ordering with curated coffees, always available. We handle sourcing and roasting—you order on roast day and pick it up.
             </p>
           </div>
@@ -266,31 +271,31 @@ export default function CoOpPage() {
               <div
                 key={i}
                 className={`bg-white rounded-2xl p-8 shadow-lg border-2 ${
-                  tier.featured ? "border-amber-800 scale-105" : "border-amber-200"
+                  tier.featured ? "border-[#F4A261] scale-105" : "border-[#E9F1F2]"
                 }`}
               >
                 {tier.featured && (
-                  <div className="bg-amber-800 text-white text-sm font-semibold px-4 py-1 rounded-full inline-block mb-4">
+                  <div className="bg-[#F4A261] text-white text-sm font-semibold px-4 py-1 rounded-full inline-block mb-4">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-3xl font-bold text-stone-900 mb-2">{tier.size}</h3>
+                <h3 className="text-3xl font-bold text-[#2B2118] mb-2">{tier.size}</h3>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold text-amber-800">{tier.price}</span>
-                  <span className="text-stone-600 ml-2">per month · {tier.perLb}</span>
+                  <span className="text-4xl font-bold text-[#F4A261]">{tier.price}</span>
+                  <span className="text-[#2B2118]/80 ml-2">per month · {tier.perLb}</span>
                 </div>
-                <p className="text-stone-600 mb-6">{tier.desc}</p>
-                <ul className="space-y-2 text-stone-700 mb-6">
+                <p className="text-[#2B2118]/80 mb-6">{tier.desc}</p>
+                <ul className="space-y-2 text-[#2B2118] mb-6">
                   <li className="flex items-start gap-2">
-                    <span className="text-amber-800">✓</span>
+                    <span className="text-[#2A9D8F]">✓</span>
                     <span>Fresh roasted monthly</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-amber-800">✓</span>
+                    <span className="text-[#2A9D8F]">✓</span>
                     <span>Curated selection</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-amber-800">✓</span>
+                    <span className="text-[#2A9D8F]">✓</span>
                     <span>Your roast level</span>
                   </li>
                 </ul>
@@ -299,31 +304,31 @@ export default function CoOpPage() {
           </div>
 
           {/* What You Get */}
-          <div className="bg-white rounded-2xl p-8 mb-12 border border-amber-100">
-            <h3 className="text-2xl font-bold text-stone-900 mb-6">What You Get</h3>
+          <div className="bg-white rounded-2xl p-8 mb-12 border border-[#E9F1F2]">
+            <h3 className="text-2xl font-bold text-[#2B2118] mb-6">What You Get</h3>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h4 className="font-bold text-stone-900 mb-3">Coffee selection</h4>
-                <p className="text-stone-700 mb-6">
+                <h4 className="font-bold text-[#2B2118] mb-3">Coffee selection</h4>
+                <p className="text-[#2B2118] mb-6">
                   We rotate through coffees we love—seasonal favorites, single origins, and blends that work well. You'll get whatever's featured that month, roasted fresh.
                 </p>
-                <h4 className="font-bold text-stone-900 mb-3">Roast level</h4>
-                <p className="text-stone-700">
+                <h4 className="font-bold text-[#2B2118] mb-3">Roast level</h4>
+                <p className="text-[#2B2118]">
                   Light, medium, or dark—your choice. Tell us once, and we'll remember it. Want to change it? Just let us know.
                 </p>
               </div>
               <div>
-                <h4 className="font-bold text-stone-900 mb-3">Fulfillment</h4>
-                <p className="text-stone-700 mb-4">
+                <h4 className="font-bold text-[#2B2118] mb-3">Fulfillment</h4>
+                <p className="text-[#2B2118] mb-4">
                   <strong>Roast day:</strong> First Saturday of every month<br/>
                   <strong>Order cutoff:</strong> Thursday night<br/>
                   <strong>Pickup window:</strong> Saturday–Tuesday
                 </p>
-                <p className="text-stone-700 mb-6">
+                <p className="text-[#2B2118] mb-6">
                   We'll text you when your coffee is ready (usually Saturday morning). Orders placed by Thursday night are included in that month's roast.
                 </p>
-                <h4 className="font-bold text-stone-900 mb-3">Pickup & delivery</h4>
-                <ul className="text-stone-700 space-y-2">
+                <h4 className="font-bold text-[#2B2118] mb-3">Pickup & delivery</h4>
+                <ul className="text-[#2B2118] space-y-2">
                   <li>• <strong>Pickup:</strong> Free from our Salt Lake City home. Available Saturday–Tuesday after roast day. We'll send the address after you join.</li>
                   <li>• <strong>Delivery:</strong> $8 within 10 miles of Salt Lake City, available during the pickup window.</li>
                 </ul>
@@ -332,11 +337,11 @@ export default function CoOpPage() {
           </div>
 
           {/* Office Callout */}
-          <div className="bg-stone-900 rounded-2xl p-8 text-white">
+          <div className="bg-[#2B2118] rounded-2xl p-8 text-white">
             <div className="flex items-start justify-between gap-6 mb-6">
               <div className="flex-1">
                 <h3 className="text-3xl font-bold mb-3">Buying for a team or office?</h3>
-                <p className="text-stone-300 text-lg">
+                <p className="text-white/70 text-lg">
                   We can set up custom pricing and larger orders for groups. Perfect for offices, teams, or any group that goes through coffee regularly.
                 </p>
               </div>
@@ -346,7 +351,7 @@ export default function CoOpPage() {
             {!showOfficeForm ? (
               <button
                 onClick={() => setShowOfficeForm(true)}
-                className="bg-amber-800 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-900 transition-colors"
+                className="bg-[#F4A261] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#E89452] transition-colors"
               >
                 Get Office Pricing
               </button>
@@ -359,7 +364,7 @@ export default function CoOpPage() {
                     required
                     value={officeFormData.name}
                     onChange={(e) => setOfficeFormData({ ...officeFormData, name: e.target.value })}
-                    className="px-4 py-3 rounded-lg text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="px-4 py-3 rounded-lg text-[#2B2118] focus:outline-none focus:ring-2 focus:ring-[#F4A261]"
                   />
                   <input
                     type="email"
@@ -367,7 +372,7 @@ export default function CoOpPage() {
                     required
                     value={officeFormData.email}
                     onChange={(e) => setOfficeFormData({ ...officeFormData, email: e.target.value })}
-                    className="px-4 py-3 rounded-lg text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="px-4 py-3 rounded-lg text-[#2B2118] focus:outline-none focus:ring-2 focus:ring-[#F4A261]"
                   />
                   <input
                     type="text"
@@ -375,13 +380,13 @@ export default function CoOpPage() {
                     required
                     value={officeFormData.teamSize}
                     onChange={(e) => setOfficeFormData({ ...officeFormData, teamSize: e.target.value })}
-                    className="px-4 py-3 rounded-lg text-stone-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="px-4 py-3 rounded-lg text-[#2B2118] focus:outline-none focus:ring-2 focus:ring-[#F4A261]"
                   />
                 </div>
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="bg-amber-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-amber-900 transition-colors"
+                    className="bg-[#F4A261] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#E89452] transition-colors"
                   >
                     Submit
                   </button>
@@ -403,13 +408,13 @@ export default function CoOpPage() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">A Local Thing</h2>
-            <p className="text-xl text-stone-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">A Local Thing</h2>
+            <p className="text-xl text-[#2B2118]/80 max-w-2xl mx-auto">
               It's monthly batch ordering—a small group of people in Salt Lake who appreciate good coffee and supporting local craft. Order on each roast day when you want coffee.
             </p>
           </div>
 
-          <div className="space-y-6 text-lg text-stone-700 leading-relaxed">
+          <div className="space-y-6 text-lg text-[#2B2118] leading-relaxed">
             <p>
               We're a small roaster. When you pick up your coffee, you'll be picking it up from our home. You'll meet us, see where we roast, and become part of a small community of people who care about quality coffee.
             </p>
@@ -424,20 +429,20 @@ export default function CoOpPage() {
       </section>
 
       {/* Savings */}
-      <section className="py-20 px-6 bg-green-50">
+      <section className="py-20 px-6 bg-[#E9F1F2]">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">The Math</h2>
-            <p className="text-xl text-stone-600">
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">The Math</h2>
+            <p className="text-xl text-[#2B2118]/80">
               If you drink 3-4 cups per day, you'll likely save about $300-400 per year vs buying retail bags
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-green-200">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
             <div className="space-y-6">
-              <div className="border-b border-stone-200 pb-6">
-                <p className="text-stone-600 mb-4">The waste we remove:</p>
-                <ul className="space-y-2 text-stone-700">
+              <div className="border-b border-[#E9F1F2] pb-6">
+                <p className="text-[#2B2118]/80 mb-4">The waste we remove:</p>
+                <ul className="space-y-2 text-[#2B2118]">
                   <li>• Individual bags and labels</li>
                   <li>• Packaging and shipping costs</li>
                   <li>• Retail markup and shelf time</li>
@@ -445,10 +450,10 @@ export default function CoOpPage() {
                 </ul>
               </div>
               <div>
-                <p className="text-stone-700 mb-2">
+                <p className="text-[#2B2118] mb-2">
                   That's how we keep prices lower. We're not cutting quality—we're cutting the stuff that doesn't add value to your coffee experience.
                 </p>
-                <p className="text-stone-600 text-sm">
+                <p className="text-[#2B2118]/80 text-sm">
                   Example: 5 lbs/month at House Batch Program = $62.50. Same amount in retail bags (roughly 6-7 bags) = $108-126/month. Over a year, that's about $550-750 in savings.
                 </p>
               </div>
@@ -458,10 +463,10 @@ export default function CoOpPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-6 bg-stone-50">
+      <section className="py-20 px-6 bg-[#E9F1F2]">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">Common Questions</h2>
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">Common Questions</h2>
           </div>
 
           <div className="space-y-4">
@@ -495,16 +500,16 @@ export default function CoOpPage() {
                 a: "Absolutely. Just don't place an order for that month. No questions asked, no penalties. You're in control.",
               },
             ].map((faq, i) => (
-              <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden border border-amber-100">
+              <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden border border-[#E9F1F2]">
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-amber-50 transition-colors"
+                  className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-[#E9F1F2] transition-colors"
                 >
-                  <span className="text-lg font-semibold text-stone-900">{faq.q}</span>
-                  <span className="text-2xl text-amber-800">{openFaq === i ? "−" : "+"}</span>
+                  <span className="text-lg font-semibold text-[#2B2118]">{faq.q}</span>
+                  <span className="text-2xl text-[#2A9D8F]">{openFaq === i ? "−" : "+"}</span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-6 pb-5 text-stone-700 leading-relaxed">{faq.a}</div>
+                  <div className="px-6 pb-5 text-[#2B2118] leading-relaxed">{faq.a}</div>
                 )}
               </div>
             ))}
@@ -516,8 +521,8 @@ export default function CoOpPage() {
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">Enthusiast Co-Op</h2>
-            <p className="text-xl text-stone-600 max-w-2xl mx-auto mb-6">
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">Enthusiast Co-Op</h2>
+            <p className="text-xl text-[#2B2118]/80 max-w-2xl mx-auto mb-6">
               For advanced coffee lovers who want to source specific coffees and participate in group buys. This is optional and requires more involvement.
             </p>
             <button
@@ -529,7 +534,7 @@ export default function CoOpPage() {
                 }
                 document.getElementById("enthusiast-details")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-semibold hover:bg-amber-50 transition-colors"
+              className="border-2 border-[#F4A261] text-[#F4A261] px-8 py-4 rounded-full font-semibold hover:bg-[#F4A261]/10 transition-colors"
               data-event="enthusiast_explore_click"
             >
               Explore Enthusiast Co-Op
@@ -538,26 +543,26 @@ export default function CoOpPage() {
 
           <div id="enthusiast-details" className="space-y-12">
             {/* Green Coffee Explanation */}
-            <div className="bg-amber-50 rounded-2xl p-8 border border-amber-200">
-              <h3 className="text-2xl font-bold text-stone-900 mb-4">About green coffee and group buys</h3>
-              <p className="text-stone-700 leading-relaxed mb-4">
+            <div className="bg-[#E9F1F2] rounded-2xl p-8 border border-[#E9F1F2]">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-4">About green coffee and group buys</h3>
+              <p className="text-[#2B2118] leading-relaxed mb-4">
                 Green coffee beans are unroasted coffee seeds. In the Enthusiast Co-Op, you can browse offerings from trusted importers and suggest specific coffees you want us to source.
               </p>
-              <p className="text-stone-700 leading-relaxed">
+              <p className="text-[#2B2118] leading-relaxed">
                 When we get 3 commitments for a particular coffee, we order it and roast it fresh for everyone. This gives you more control over the exact coffees you receive, but requires a group commitment to trigger ordering.
               </p>
             </div>
 
             {/* Coffee Consumption Calculator (Advanced) */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100">
-              <h3 className="text-2xl font-bold text-stone-900 mb-6 text-center">Coffee consumption calculator</h3>
-              <p className="text-center text-stone-600 mb-8">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-6 text-center">Coffee consumption calculator</h3>
+              <p className="text-center text-[#2B2118]/80 mb-8">
                 Calculate your monthly coffee needs based on your brewing habits
               </p>
 
               <div className="space-y-8">
                 <div>
-                  <label className="block text-lg font-semibold text-stone-900 mb-4 text-center">
+                  <label className="block text-lg font-semibold text-[#2B2118] mb-4 text-center">
                     What brewing method do you use?
                   </label>
                   <div className="flex flex-wrap gap-4 justify-center">
@@ -571,8 +576,8 @@ export default function CoOpPage() {
                         onClick={() => setBrewingMethod(method.id)}
                         className={`px-6 py-4 rounded-xl border-2 transition-all ${
                           brewingMethod === method.id
-                            ? "bg-amber-800 border-amber-800 text-white"
-                            : "bg-white border-amber-300 text-amber-800 hover:border-amber-500"
+                            ? "bg-[#F4A261] border-[#F4A261] text-white"
+                            : "bg-white border-[#E9F1F2] text-[#2B2118] hover:border-[#F4A261]"
                         }`}
                       >
                         <span className="font-semibold">{method.label}</span>
@@ -582,7 +587,7 @@ export default function CoOpPage() {
                 </div>
 
                 <div>
-                  <label className="block text-lg font-semibold text-stone-900 mb-4 text-center">
+                  <label className="block text-lg font-semibold text-[#2B2118] mb-4 text-center">
                     Cup size (ounces)?
                   </label>
                   <div className="flex flex-wrap gap-3 justify-center">
@@ -592,8 +597,8 @@ export default function CoOpPage() {
                         onClick={() => setOuncesPerCup(oz)}
                         className={`px-6 py-3 rounded-xl border-2 transition-all ${
                           ouncesPerCup === oz
-                            ? "bg-amber-800 border-amber-800 text-white"
-                            : "bg-white border-amber-300 text-amber-800 hover:border-amber-500"
+                            ? "bg-[#F4A261] border-[#F4A261] text-white"
+                            : "bg-white border-[#E9F1F2] text-[#2B2118] hover:border-[#F4A261]"
                         }`}
                       >
                         {oz} oz
@@ -603,7 +608,7 @@ export default function CoOpPage() {
                 </div>
 
                 <div>
-                  <label className="block text-lg font-semibold text-stone-900 mb-4 text-center">
+                  <label className="block text-lg font-semibold text-[#2B2118] mb-4 text-center">
                     Cups per day?
                   </label>
                   <div className="flex flex-wrap gap-3 justify-center">
@@ -613,8 +618,8 @@ export default function CoOpPage() {
                         onClick={() => setCupsPerDay(num)}
                         className={`w-16 h-16 rounded-xl border-2 transition-all flex items-center justify-center ${
                           cupsPerDay === num
-                            ? "bg-amber-800 border-amber-800 text-white"
-                            : "bg-white border-amber-300 text-amber-800 hover:border-amber-500"
+                            ? "bg-[#F4A261] border-[#F4A261] text-white"
+                            : "bg-white border-[#E9F1F2] text-[#2B2118] hover:border-[#F4A261]"
                         }`}
                       >
                         {num}
@@ -624,10 +629,10 @@ export default function CoOpPage() {
                 </div>
 
                 {cupsPerDay > 0 && (
-                  <div className="mt-8 pt-8 border-t-2 border-amber-200 text-center">
-                    <h4 className="text-xl font-bold text-stone-900 mb-4">Your monthly coffee needs</h4>
-                    <p className="text-3xl font-bold text-amber-800 mb-2">{monthlyPounds} lbs</p>
-                    <p className="text-stone-600">
+                  <div className="mt-8 pt-8 border-t-2 border-[#E9F1F2] text-center">
+                    <h4 className="text-xl font-bold text-[#2B2118] mb-4">Your monthly coffee needs</h4>
+                    <p className="text-3xl font-bold text-[#2A9D8F] mb-2">{monthlyPounds} lbs</p>
+                    <p className="text-[#2B2118]/80">
                       Based on {cupsPerDay} {cupsPerDay === 1 ? "cup" : "cups"} of {ouncesPerCup}oz coffee per day
                     </p>
                   </div>
@@ -636,9 +641,9 @@ export default function CoOpPage() {
             </div>
 
             {/* Browse Green Coffee */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100">
-              <h3 className="text-2xl font-bold text-stone-900 mb-4 text-center">Browse green coffee offerings</h3>
-              <p className="text-center text-stone-600 mb-6">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-[#E9F1F2]">
+              <h3 className="text-2xl font-bold text-[#2B2118] mb-4 text-center">Browse green coffee offerings</h3>
+              <p className="text-center text-[#2B2118]/80 mb-6">
                 We source from trusted importers. Browse their offerings to find beans you'd like us to roast.
               </p>
 
@@ -647,29 +652,29 @@ export default function CoOpPage() {
                   href="https://bodega.coffee/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-amber-50 rounded-xl p-6 border-2 border-amber-200 hover:border-amber-800 transition-all text-center"
+                  className="bg-[#E9F1F2] rounded-xl p-6 border-2 border-[#E9F1F2] hover:border-[#2A9D8F] transition-all text-center"
                 >
-                  <h4 className="text-xl font-bold text-stone-900 mb-2">Cafe Imports</h4>
-                  <p className="text-amber-800 font-semibold mb-2">Bodega Program</p>
-                  <p className="text-stone-600 text-sm">Browse green coffee offerings →</p>
+                  <h4 className="text-xl font-bold text-[#2B2118] mb-2">Cafe Imports</h4>
+                  <p className="text-[#2A9D8F] font-semibold mb-2">Bodega Program</p>
+                  <p className="text-[#2B2118]/80 text-sm">Browse green coffee offerings →</p>
                 </a>
 
                 <a
                   href="https://royalcoffee.com/crown-jewels/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-amber-50 rounded-xl p-6 border-2 border-amber-200 hover:border-amber-800 transition-all text-center"
+                  className="bg-[#E9F1F2] rounded-xl p-6 border-2 border-[#E9F1F2] hover:border-[#2A9D8F] transition-all text-center"
                 >
-                  <h4 className="text-xl font-bold text-stone-900 mb-2">Royal Coffee</h4>
-                  <p className="text-amber-800 font-semibold mb-2">Crown Jewels Program</p>
-                  <p className="text-stone-600 text-sm">Browse green coffee offerings →</p>
+                  <h4 className="text-xl font-bold text-[#2B2118] mb-2">Royal Coffee</h4>
+                  <p className="text-[#2A9D8F] font-semibold mb-2">Crown Jewels Program</p>
+                  <p className="text-[#2B2118]/80 text-sm">Browse green coffee offerings →</p>
                 </a>
               </div>
 
               {/* Intent to Buy Form */}
-              <div className="bg-stone-50 rounded-xl p-6">
-                <h4 className="text-xl font-bold text-stone-900 mb-4">Enter your intent to buy</h4>
-                <p className="text-stone-600 mb-4">
+              <div className="bg-[#E9F1F2] rounded-xl p-6">
+                <h4 className="text-xl font-bold text-[#2B2118] mb-4">Enter your intent to buy</h4>
+                <p className="text-[#2B2118]/80 mb-4">
                   Found a coffee you want? Enter the coffee name. We need 3 commitments before we order and roast.
                 </p>
 
@@ -680,8 +685,8 @@ export default function CoOpPage() {
                       onClick={() => setSelectedCompany("royal")}
                       className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
                         selectedCompany === "royal"
-                          ? "bg-amber-800 border-amber-800 text-white"
-                          : "bg-white border-amber-300 text-amber-800"
+                          ? "bg-[#F4A261] border-[#F4A261] text-white"
+                          : "bg-white border-[#E9F1F2] text-[#2B2118]"
                       }`}
                     >
                       Royal Coffee
@@ -691,8 +696,8 @@ export default function CoOpPage() {
                       onClick={() => setSelectedCompany("cafe-imports")}
                       className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
                         selectedCompany === "cafe-imports"
-                          ? "bg-amber-800 border-amber-800 text-white"
-                          : "bg-white border-amber-300 text-amber-800"
+                          ? "bg-[#F4A261] border-[#F4A261] text-white"
+                          : "bg-white border-[#E9F1F2] text-[#2B2118]"
                       }`}
                     >
                       Cafe Imports
@@ -705,12 +710,12 @@ export default function CoOpPage() {
                       value={coffeeNameInput}
                       onChange={(e) => setCoffeeNameInput(e.target.value)}
                       placeholder="Enter coffee name from importer website"
-                      className="flex-1 px-4 py-3 rounded-xl border-2 border-amber-300 text-stone-900 focus:outline-none focus:border-amber-800"
+                      className="flex-1 px-4 py-3 rounded-xl border-2 border-[#E9F1F2] text-[#2B2118] focus:outline-none focus:border-[#F4A261]"
                       required
                     />
                     <button
                       type="submit"
-                      className="bg-amber-800 text-white px-6 py-3 rounded-xl font-semibold hover:bg-amber-900 transition-colors"
+                      className="bg-[#F4A261] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#E89452] transition-colors"
                     >
                       Submit Intent
                     </button>
@@ -718,8 +723,8 @@ export default function CoOpPage() {
                 </form>
 
                 {submittedCoffee && (
-                  <div className="mt-4 p-4 bg-amber-50 border-2 border-amber-300 rounded-xl">
-                    <p className="text-amber-900 font-semibold">
+                  <div className="mt-4 p-4 bg-[#E9F1F2] border-2 border-[#2A9D8F] rounded-xl">
+                    <p className="text-[#2B2118] font-semibold">
                       ✓ Added to intent list! Current commitments: {intentCounts[submittedCoffee]} / 3 needed
                     </p>
                   </div>
@@ -731,14 +736,14 @@ export default function CoOpPage() {
       </section>
 
       {/* Final CTA + Intake Form */}
-      <section id="join-form" className="py-20 px-6 bg-gradient-to-b from-amber-100 to-amber-200">
+      <section id="join-form" className="py-20 px-6 bg-gradient-to-b from-[#F4A261]/20 to-[#F4A261]/10">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold text-stone-900 mb-4">Ready to get started?</h2>
-            <p className="text-xl text-stone-700 mb-2">
+            <h2 className="text-4xl font-bold text-[#2B2118] mb-4">Ready to get started?</h2>
+            <p className="text-xl text-[#2B2118] mb-2">
               Fill out the form below and we'll get you set up with House Batch Program
             </p>
-            <p className="text-stone-600 text-sm">
+            <p className="text-[#2B2118]/80 text-sm">
               Salt Lake area only. Local pickup is free, and it keeps this community real.
             </p>
           </div>
@@ -746,48 +751,48 @@ export default function CoOpPage() {
           {showForm ? (
             <form onSubmit={handleJoinSubmit} className="bg-white rounded-2xl p-8 shadow-xl space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-stone-900 mb-2">Name *</label>
+                <label className="block text-sm font-semibold text-[#2B2118] mb-2">Name *</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-amber-300 text-stone-900 focus:outline-none focus:border-amber-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-[#E9F1F2] text-[#2B2118] focus:outline-none focus:border-[#F4A261]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900 mb-2">Email *</label>
+                <label className="block text-sm font-semibold text-[#2B2118] mb-2">Email *</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-amber-300 text-stone-900 focus:outline-none focus:border-amber-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-[#E9F1F2] text-[#2B2118] focus:outline-none focus:border-[#F4A261]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900 mb-2">ZIP Code *</label>
+                <label className="block text-sm font-semibold text-[#2B2118] mb-2">ZIP Code *</label>
                 <input
                   type="text"
                   required
                   value={formData.zip}
                   onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-amber-300 text-stone-900 focus:outline-none focus:border-amber-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-[#E9F1F2] text-[#2B2118] focus:outline-none focus:border-[#F4A261]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900 mb-2">Pickup or delivery? *</label>
+                <label className="block text-sm font-semibold text-[#2B2118] mb-2">Pickup or delivery? *</label>
                 <div className="flex gap-4">
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, preference: "pickup" })}
                     className={`flex-1 px-6 py-4 rounded-xl border-2 transition-all ${
                       formData.preference === "pickup"
-                        ? "bg-amber-800 border-amber-800 text-white"
-                        : "bg-white border-amber-300 text-amber-800 hover:border-amber-500"
+                        ? "bg-[#F4A261] border-[#F4A261] text-white"
+                        : "bg-white border-[#E9F1F2] text-[#2B2118] hover:border-[#F4A261]"
                     }`}
                   >
                     Pickup (Free)
@@ -797,18 +802,18 @@ export default function CoOpPage() {
                     onClick={() => setFormData({ ...formData, preference: "delivery" })}
                     className={`flex-1 px-6 py-4 rounded-xl border-2 transition-all ${
                       formData.preference === "delivery"
-                        ? "bg-amber-800 border-amber-800 text-white"
-                        : "bg-white border-amber-300 text-amber-800 hover:border-amber-500"
+                        ? "bg-[#F4A261] border-[#F4A261] text-white"
+                        : "bg-white border-[#E9F1F2] text-[#2B2118] hover:border-[#F4A261]"
                     }`}
                   >
                     Delivery ($8)
                   </button>
                 </div>
-                <p className="text-sm text-stone-600 mt-2">Delivery available within 10 miles of Salt Lake City</p>
+                <p className="text-sm text-[#2B2118]/80 mt-2">Delivery available within 10 miles of Salt Lake City</p>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-stone-900 mb-2">
+                <label className="block text-sm font-semibold text-[#2B2118] mb-2">
                   Estimated monthly coffee usage (lbs)
                 </label>
                 <input
@@ -816,13 +821,13 @@ export default function CoOpPage() {
                   value={formData.monthlyUsage}
                   onChange={(e) => setFormData({ ...formData, monthlyUsage: e.target.value })}
                   placeholder="e.g., 2, 5, or 10"
-                  className="w-full px-4 py-3 rounded-xl border-2 border-amber-300 text-stone-900 focus:outline-none focus:border-amber-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-[#E9F1F2] text-[#2B2118] focus:outline-none focus:border-[#F4A261]"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-amber-800 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-amber-900 transition-colors shadow-lg"
+                className="w-full bg-[#F4A261] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#E89452] transition-colors shadow-lg"
               >
                 Get started
               </button>
@@ -830,7 +835,7 @@ export default function CoOpPage() {
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="w-full border-2 border-amber-800 text-amber-800 px-8 py-3 rounded-full font-semibold hover:bg-amber-50 transition-colors"
+                className="w-full border-2 border-[#F4A261] text-[#F4A261] px-8 py-3 rounded-full font-semibold hover:bg-[#F4A261]/10 transition-colors"
               >
                 Cancel
               </button>
@@ -847,13 +852,13 @@ export default function CoOpPage() {
                     });
                   }
                 }}
-                className="bg-amber-800 text-white px-12 py-5 rounded-full text-xl font-semibold hover:bg-amber-900 transition-all shadow-lg transform hover:scale-105"
+                className="bg-[#F4A261] text-white px-12 py-5 rounded-full text-xl font-semibold hover:bg-[#E89452] transition-all shadow-lg transform hover:scale-105"
                 data-event="coop_join_click"
               >
                 Get started (local pickup)
               </button>
-              <p className="mt-4 text-stone-600">
-                Or <Link href="/#contact" className="text-amber-800 font-semibold hover:underline">contact us</Link> to learn more
+              <p className="mt-4 text-[#2B2118]/80">
+                Or <Link href="/#contact" className="text-[#F4A261] font-semibold hover:underline">contact us</Link> to learn more
               </p>
             </div>
           )}
@@ -861,34 +866,34 @@ export default function CoOpPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-stone-900 text-stone-300 py-12 px-6">
+      <footer className="bg-[#2B2118] text-white/70 py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <Link href="/" className="text-2xl font-bold text-white mb-4 block">WILDFLIGHT</Link>
-              <p className="text-stone-400">
+              <p className="text-white/60">
                 Specialty micro-roasted coffee from Salt Lake City, Utah.
               </p>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                <li><Link href="/#roasts" className="hover:text-amber-400 transition-colors">Our Roasts</Link></li>
-                <li><Link href="/#coop" className="hover:text-amber-400 transition-colors">Co-Op Program</Link></li>
-                <li><Link href="/#story" className="hover:text-amber-400 transition-colors">Our Story</Link></li>
-                <li><Link href="/#contact" className="hover:text-amber-400 transition-colors">Contact</Link></li>
+                <li><Link href="/#roasts" className="hover:text-[#F4A261] transition-colors">Our Roasts</Link></li>
+                <li><Link href="/#coop" className="hover:text-[#F4A261] transition-colors">Co-Op Program</Link></li>
+                <li><Link href="/#story" className="hover:text-[#F4A261] transition-colors">Our Story</Link></li>
+                <li><Link href="/#contact" className="hover:text-[#F4A261] transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Connect</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-amber-400 transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-amber-400 transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-amber-400 transition-colors">Email</a></li>
+                <li><a href="#" className="hover:text-[#F4A261] transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-[#F4A261] transition-colors">Facebook</a></li>
+                <li><a href="#" className="hover:text-[#F4A261] transition-colors">Email</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-stone-800 pt-8 text-center text-stone-500">
+          <div className="border-t border-white/20 pt-8 text-center text-white/50">
             <p>&copy; {new Date().getFullYear()} Wildflight Coffee. All rights reserved.</p>
           </div>
         </div>
