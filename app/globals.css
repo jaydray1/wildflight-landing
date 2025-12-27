@@ -7,7 +7,7 @@
   --accent-dark: #654321;
   --earth: #6b5b4f;
   --sky: #4a6fa5;
-  
+
   /* New Brand Colors */
   --midnight-roast: #2B2118;
   --golden-hour: #F4A261;
@@ -23,6 +23,7 @@
   --color-sky-mist: var(--sky-mist);
   --color-wing-teal: var(--wing-teal);
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-roboto-mono);
 }
 
 html {
@@ -33,4 +34,133 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes scan {
+  0% { top: 0; opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+@keyframes laserFade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes muzzleFlash {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+@keyframes impactExplosion {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+@keyframes particleFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle, 0deg)) translateX(40px) scale(0);
+  }
+}
+
+@keyframes alienApproach {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2) translateZ(0);
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3) translateZ(0);
+    opacity: 0;
+  }
+}
+
+@keyframes dataJitter {
+  0%, 100% { transform: translateX(0px); }
+  25% { transform: translateX(0.5px); }
+  50% { transform: translateX(-0.3px); }
+  75% { transform: translateX(0.4px); }
+}
+
+.animate-dataJitter {
+  animation: dataJitter 0.1s ease-in-out infinite;
+}
+
+@keyframes subtleFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+.animate-subtleFlicker {
+  animation: subtleFlicker 2s ease-in-out infinite;
+}
+
+/* Lens distortion effect */
+.lens-distortion {
+  filter: blur(0.5px);
+}
+
+.lens-distortion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(255, 200, 0, 0.1) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at top right,
+    rgba(0, 255, 200, 0.1) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at bottom left,
+    rgba(200, 0, 255, 0.1) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at bottom right,
+    rgba(255, 0, 200, 0.1) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
