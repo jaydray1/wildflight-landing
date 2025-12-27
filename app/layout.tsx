@@ -10,6 +10,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Wildflight Coffee | Specialty Micro-Roaster | Salt Lake City",
   description: "Specialty micro-roasted coffee for the adventurous spirit. Based in Salt Lake City, crafted for those who chase horizons and soar high.",
+  icons: {
+    icon: "/images/Logo_Favicon_v1.0..png",
+  },
 };
 
 export default function RootLayout({

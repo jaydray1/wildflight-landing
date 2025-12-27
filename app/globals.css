@@ -7,7 +7,7 @@
   --accent-dark: #654321;
   --earth: #6b5b4f;
   --sky: #4a6fa5;
-  
+
   /* New Brand Colors */
   --midnight-roast: #2B2118;
   --golden-hour: #F4A261;
@@ -33,4 +33,35 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+}
+
+.font-black {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.mountain-shape {
+  clip-path: polygon(0% 100%, 20% 60%, 40% 80%, 60% 40%, 80% 70%, 100% 30%, 100% 100%);
+  position: relative;
+}
+
+.mountain-shape-1 {
+  clip-path: polygon(0% 100%, 0% 70%, 15% 50%, 30% 60%, 45% 30%, 60% 50%, 75% 20%, 90% 40%, 100% 25%, 100% 100%);
+}
+
+.mountain-shape-2 {
+  clip-path: polygon(0% 100%, 0% 75%, 20% 55%, 35% 65%, 50% 35%, 65% 55%, 80% 25%, 100% 45%, 100% 100%);
+}
+
+.mountain-shape-3 {
+  clip-path: polygon(0% 100%, 0% 60%, 25% 40%, 40% 55%, 55% 25%, 70% 45%, 85% 20%, 100% 35%, 100% 100%);
+}
+
+.mountain-shape-4 {
+  clip-path: polygon(0% 100%, 0% 80%, 15% 60%, 30% 70%, 45% 40%, 60% 60%, 75% 30%, 90% 50%, 100% 30%, 100% 100%);
 }
