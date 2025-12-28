@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+import CalculatorModal from "../components/CalculatorModal";
 
 export default function CoOpPage() {
   // Form states
@@ -25,22 +26,8 @@ export default function CoOpPage() {
   });
   const [showOfficeForm, setShowOfficeForm] = useState(false);
 
-  // Enthusiast calculator state (moved below fold)
-  const [cupsPerDay, setCupsPerDay] = useState(0);
-  const [ouncesPerCup, setOuncesPerCup] = useState(12);
-  const [brewingMethod, setBrewingMethod] = useState("filter");
-
-  // Enthusiast intent to buy state
-  const [selectedCompany, setSelectedCompany] = useState<"royal" | "cafe-imports">("royal");
-  const [coffeeNameInput, setCoffeeNameInput] = useState("");
-  const [submittedCoffee, setSubmittedCoffee] = useState<string | null>(null);
-  const [intentCounts, setIntentCounts] = useState<Record<string, number>>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("wildflight-intent-counts");
-      return stored ? JSON.parse(stored) : {};
-    }
-    return {};
-  });
+  // Calculator modal state
+  const [showCalculatorModal, setShowCalculatorModal] = useState(false);
 
   // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -73,40 +60,6 @@ export default function CoOpPage() {
     setShowOfficeForm(false);
     setOfficeFormData({ name: "", email: "", teamSize: "" });
   };
-
-  const handleIntentSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!coffeeNameInput.trim()) return;
-
-    const coffeeKey = `${selectedCompany}-${coffeeNameInput.trim()}`;
-    const currentCount = intentCounts[coffeeKey] || 0;
-    const newCount = currentCount + 1;
-
-    const updatedCounts = { ...intentCounts, [coffeeKey]: newCount };
-    setIntentCounts(updatedCounts);
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("wildflight-intent-counts", JSON.stringify(updatedCounts));
-    }
-
-    setSubmittedCoffee(coffeeKey);
-    setCoffeeNameInput("");
-    setTimeout(() => setSubmittedCoffee(null), 5000);
-  };
-
-  // Coffee consumption calculator (for Enthusiast section)
-  const brewingRatios: Record<string, number> = {
-    filter: 18,
-    "pour-over": 16,
-    aeropress: 11,
-  };
-
-  const ozToGrams = 28.35;
-  const coffeeToWaterRatio = brewingRatios[brewingMethod] || 16;
-  const coffeeBeansPerCupGrams = (ouncesPerCup * ozToGrams) / coffeeToWaterRatio;
-  const coffeeBeansPerCupOz = coffeeBeansPerCupGrams / ozToGrams;
-  const totalDailyOzBeans = cupsPerDay * coffeeBeansPerCupOz;
-  const monthlyPounds = ((totalDailyOzBeans * 30) / 16).toFixed(1);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
@@ -172,16 +125,54 @@ export default function CoOpPage() {
 
       {/* Why This Exists */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 sm:mb-6 tracking-tight">Why This Exists</h2>
-          <div className="text-lg sm:text-xl md:text-2xl text-slate-700 leading-relaxed space-y-4 sm:space-y-6 font-medium">
-            <p>
-              Specialty coffee is expensive because of packaging, shipping, distribution, and retail markup. Every bag costs money to design, print, fill, and move across the country.
-            </p>
-            <p>
-              We do it locally in bulk so you pay less and get fresher coffee. No individual bags, no cross-country shipping, no retail shelf time. Just roasted coffee, delivered locally.
-            </p>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-8 sm:mb-12 tracking-tight text-center">Why This Exists</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 mb-8 sm:mb-10">
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex-shrink-0 text-4xl sm:text-5xl">🚫</div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">No shipping costs</h3>
+                <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+                  No cross-country shipping, no distribution centers, no delivery fees.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex-shrink-0 text-4xl sm:text-5xl">🚫</div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">No packaging waste</h3>
+                <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+                  No individual bags to design, print, fill, or dispose of.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex-shrink-0 text-4xl sm:text-5xl">🚫</div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">No retail markup</h3>
+                <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+                  No shelf space costs, no middlemen, no retail markup.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-4 sm:gap-6">
+              <div className="flex-shrink-0 text-4xl sm:text-5xl">✓</div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">Just fresh coffee</h3>
+                <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+                  Roasted locally, shared in bulk, delivered fresh—you get better coffee for less.
+                </p>
+              </div>
+            </div>
           </div>
+          
+          <p className="text-lg sm:text-xl text-slate-900 font-bold text-center leading-relaxed">
+            You're beating the system. We're just making it possible.
+          </p>
         </div>
       </section>
 
@@ -193,33 +184,69 @@ export default function CoOpPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
-            <div className="space-y-4 sm:space-y-6">
-              <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">1</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Order by Thursday night</h3>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                <div className="text-5xl sm:text-6xl font-black text-slate-900">1</div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full text-slate-900">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                    <line x1="12" y1="18" x2="12" y2="18.01"/>
+                    <path d="M9 6h6M9 10h6"/>
+                    <circle cx="15" cy="7" r="1.5" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight mb-3 sm:mb-4">Order by Thursday night</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
                 Choose 2, 5, or 10 lbs — no subscription, no commitment.
               </p>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
-              <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">2</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">We roast on the first Saturday</h3>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                <div className="text-5xl sm:text-6xl font-black text-slate-900">2</div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1.5" className="w-full h-full text-slate-900">
+                    <path d="M8 10c0-2 1.8-4 4-4s4 2 4 4c0 1.2-.8 2.5-1.5 3.5C13.5 14.5 12 16 12 18c0-2-1.5-3.5-2.5-4.5C8.8 12.5 8 11.2 8 10z"/>
+                    <path d="M16 10c0 2-1.8 4-4 4s-4-2-4-4c0-1.2.8-2.5 1.5-3.5C10.5 5.5 12 4 12 2c0 2 1.5 3.5 2.5 4.5C15.2 7.5 16 8.8 16 10z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight mb-3 sm:mb-4">We roast on the first Saturday</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
                 One batch. Fresh, intentional, and dialed in.
               </p>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
-              <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">3</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">You get notified</h3>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                <div className="text-5xl sm:text-6xl font-black text-slate-900">3</div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full text-slate-900">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <path d="M13 8H3M17 12H3M9 16H3"/>
+                    <circle cx="18" cy="8" r="2" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight mb-3 sm:mb-4">You get notified</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
                 We'll text you when it's ready.
               </p>
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
-              <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">4</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Pick up locally (or get delivery)</h3>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                <div className="text-5xl sm:text-6xl font-black text-slate-900">4</div>
+                <div className="w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full text-slate-900">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                    <rect x="8" y="6" width="8" height="4" rx="1"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight mb-3 sm:mb-4">Pick up locally (or get delivery)</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
                 Free pickup in Salt Lake City, optional local delivery.
               </p>
@@ -243,9 +270,9 @@ export default function CoOpPage() {
             
             <div className="grid md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
               {[
-                { size: "2 lbs", price: "$28", desc: "Perfect if you brew daily at home.", monthly: "2" },
-                { size: "5 lbs", price: "$62.50", desc: "Best value for households or offices.", featured: true, monthly: "5" },
-                { size: "10 lbs", price: "$112.50", desc: "For teams, workplaces, or serious coffee drinkers.", monthly: "10" },
+                { size: "2 lbs", price: "$28", perCup: "$0.45", desc: "Perfect if you brew daily at home.", monthly: "2" },
+                { size: "5 lbs", price: "$62.50", perCup: "$0.40", desc: "Best value for households or offices.", featured: true, monthly: "5" },
+                { size: "10 lbs", price: "$112.50", perCup: "$0.36", desc: "For teams, workplaces, or serious coffee drinkers.", monthly: "10" },
               ].map((tier, i) => (
                 <div key={i} className="bg-slate-50 border-2 border-slate-200 p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6 hover:border-slate-300 transition-colors">
                   {tier.featured && (
@@ -255,7 +282,10 @@ export default function CoOpPage() {
                   )}
                   <div>
                     <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight mb-2">{tier.size}</h4>
-                    <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">{tier.price}</span>
+                    <div className="mb-2">
+                      <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">{tier.price}</span>
+                    </div>
+                    <p className="text-slate-600 text-sm sm:text-base font-medium">{tier.perCup} per cup</p>
                   </div>
                   <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">{tier.desc}</p>
                   <div className="pt-4 border-t border-slate-200 space-y-2">
@@ -266,6 +296,15 @@ export default function CoOpPage() {
                 </div>
               ))}
             </div>
+            
+            <div className="text-center mt-8 sm:mt-10">
+              <button
+                onClick={() => setShowCalculatorModal(true)}
+                className="text-slate-700 hover:text-slate-900 text-base sm:text-lg font-medium underline underline-offset-4 transition-colors"
+              >
+                Not sure which size? Calculate your monthly needs →
+              </button>
+            </div>
           </div>
 
           {/* What You Get */}
@@ -275,9 +314,17 @@ export default function CoOpPage() {
               <div className="space-y-6 sm:space-y-8">
                 <div>
                   <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight">Coffee selection</h4>
-                  <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+                  <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed mb-4 sm:mb-6">
                     We rotate through coffees we love—seasonal favorites, single origins, and blends that work well. You'll get whatever's featured that month, roasted fresh.
                   </p>
+                  <div className="bg-slate-100 p-4 sm:p-5 border-l-4 border-slate-900">
+                    <p className="text-slate-900 text-sm sm:text-base font-black uppercase tracking-wide mb-3 sm:mb-4">Past roasts</p>
+                    <ul className="text-slate-900 text-base sm:text-lg font-bold leading-relaxed space-y-2">
+                      <li>Nov: Ethiopia Yirgacheffe</li>
+                      <li>Oct: Colombian Huila</li>
+                      <li>Sep: Guatemala Antigua</li>
+                    </ul>
+                  </div>
                 </div>
                 <div>
                   <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight">Roast level</h4>
@@ -406,29 +453,23 @@ export default function CoOpPage() {
         <div className="max-w-4xl mx-auto">
           <div className="mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 md:mb-8 tracking-tight text-center">The Math</h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-slate-700 font-bold text-center leading-relaxed">
-              If you drink 3-4 cups per day, you'll likely save about $300-400 per year vs buying retail bags
-            </p>
           </div>
 
-          <div className="space-y-6 sm:space-y-10">
-            <div className="pb-6 sm:pb-10 border-b-2 border-slate-200">
-              <p className="text-slate-700 mb-4 sm:mb-6 text-lg sm:text-xl font-bold">The waste we remove:</p>
-              <ul className="space-y-2 sm:space-y-3 text-slate-700 text-base sm:text-lg font-medium">
-                <li>• Individual bags and labels</li>
-                <li>• Packaging and shipping costs</li>
-                <li>• Retail markup and shelf time</li>
-                <li>• Cross-country distribution</li>
-              </ul>
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+            <div className="bg-slate-50 border-2 border-slate-200 p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight mb-4 sm:mb-6">Retail Shop</h3>
+              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">$18-22/bag</p>
             </div>
-            <div className="space-y-3 sm:space-y-4">
-              <p className="text-slate-900 text-lg sm:text-xl font-medium leading-relaxed">
-                That's how we keep prices lower. We're not cutting quality—we're cutting the stuff that doesn't add value to your coffee experience.
-              </p>
-              <p className="text-slate-600 text-base sm:text-lg font-medium">
-                Example: 5 lbs/month at House Batch Program = $62.50. Same amount in retail bags (roughly 6-7 bags) = $108-126/month. Over a year, that's about $550-750 in savings.
-              </p>
+            <div className="bg-slate-900 border-2 border-slate-900 p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mb-4 sm:mb-6">House Batch</h3>
+              <p className="text-3xl sm:text-4xl md:text-5xl font-black text-white">$14/lb</p>
             </div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900">
+              You save $400/year.
+            </p>
           </div>
         </div>
       </section>
@@ -488,234 +529,6 @@ export default function CoOpPage() {
                 )}
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enthusiast Co-Op Section */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 md:mb-8 tracking-tight text-center">Enthusiast Co-Op</h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-slate-700 max-w-4xl mx-auto font-bold text-center leading-relaxed mb-6 sm:mb-8 md:mb-10">
-              For advanced coffee lovers who want to source specific coffees and participate in group buys. This is optional and requires more involvement.
-            </p>
-            <div className="text-center">
-              <button
-                onClick={() => {
-                  if (typeof window !== "undefined" && (window as any).dataLayer) {
-                    (window as any).dataLayer.push({
-                      event: "enthusiast_explore_click",
-                    });
-                  }
-                  document.getElementById("enthusiast-details")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-white text-slate-900 px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-black uppercase tracking-wide hover:bg-slate-50 transition-colors ring-1 ring-slate-300"
-                data-event="enthusiast_explore_click"
-              >
-                Explore Enthusiast Co-Op
-              </button>
-            </div>
-          </div>
-
-          <div id="enthusiast-details" className="space-y-12 sm:space-y-16">
-            {/* Green Coffee Explanation */}
-            <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-3xl sm:text-4xl font-black text-slate-900 uppercase tracking-tight">About green coffee and group buys</h3>
-              <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-700 font-medium leading-relaxed">
-                <p>
-                  Green coffee beans are unroasted coffee seeds. In the Enthusiast Co-Op, you can browse offerings from trusted importers and suggest specific coffees you want us to source.
-                </p>
-                <p>
-                  When we get 3 commitments for a particular coffee, we order it and roast it fresh for everyone. This gives you more control over the exact coffees you receive, but requires a group commitment to trigger ordering.
-                </p>
-              </div>
-            </div>
-
-            {/* Coffee Consumption Calculator (Advanced) */}
-            <div className="space-y-8 sm:space-y-10">
-              <div className="text-center">
-                <h3 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 sm:mb-6 uppercase tracking-tight">Coffee consumption calculator</h3>
-                <p className="text-lg sm:text-xl text-slate-700 font-medium">
-                  Calculate your monthly coffee needs based on your brewing habits
-                </p>
-              </div>
-
-              <div className="space-y-8 sm:space-y-10">
-                <div>
-                  <label className="block text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 text-center uppercase tracking-tight">
-                    What brewing method do you use?
-                  </label>
-                  <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-                    {[
-                      { id: "filter", label: "Filter/Drip" },
-                      { id: "pour-over", label: "Pour-Over" },
-                      { id: "aeropress", label: "Aeropress" },
-                    ].map((method) => (
-                      <button
-                        key={method.id}
-                        onClick={() => setBrewingMethod(method.id)}
-                        className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold uppercase tracking-wide text-sm sm:text-base ${
-                          brewingMethod === method.id
-                            ? "bg-slate-900 border-slate-900 text-white"
-                            : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                        }`}
-                      >
-                        {method.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 text-center uppercase tracking-tight">
-                    Cup size (ounces)?
-                  </label>
-                  <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-                    {[6, 8, 12, 16, 20].map((oz) => (
-                      <button
-                        key={oz}
-                        onClick={() => setOuncesPerCup(oz)}
-                        className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold text-sm sm:text-base ${
-                          ouncesPerCup === oz
-                            ? "bg-slate-900 border-slate-900 text-white"
-                            : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                        }`}
-                      >
-                        {oz} oz
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-lg sm:text-xl font-black text-slate-900 mb-4 sm:mb-6 text-center uppercase tracking-tight">
-                    Cups per day?
-                  </label>
-                  <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-                    {[1, 2, 3, 4, 5, 6, 8, 10].map((num) => (
-                      <button
-                        key={num}
-                        onClick={() => setCupsPerDay(num)}
-                        className={`w-14 h-14 sm:w-16 sm:h-16 border-2 transition-all flex items-center justify-center font-black text-base sm:text-lg ${
-                          cupsPerDay === num
-                            ? "bg-slate-900 border-slate-900 text-white"
-                            : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                        }`}
-                      >
-                        {num}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {cupsPerDay > 0 && (
-                  <div className="mt-8 sm:mt-12 pt-8 sm:pt-12 border-t-2 border-slate-200 text-center">
-                    <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight">Your monthly coffee needs</h4>
-                    <p className="text-4xl sm:text-5xl font-black text-slate-900 mb-3 sm:mb-4">{monthlyPounds} lbs</p>
-                    <p className="text-slate-600 text-base sm:text-lg font-medium">
-                      Based on {cupsPerDay} {cupsPerDay === 1 ? "cup" : "cups"} of {ouncesPerCup}oz coffee per day
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Browse Green Coffee */}
-            <div className="space-y-8 sm:space-y-10">
-              <div className="text-center">
-                <h3 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4 sm:mb-6 uppercase tracking-tight">Browse green coffee offerings</h3>
-                <p className="text-lg sm:text-xl text-slate-700 font-medium">
-                  We source from trusted importers. Browse their offerings to find beans you'd like us to roast.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                <a
-                  href="https://bodega.coffee/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-100 p-6 sm:p-8 border-2 border-slate-300 hover:border-slate-900 transition-all text-center"
-                >
-                  <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">Cafe Imports</h4>
-                  <p className="text-slate-700 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Bodega Program</p>
-                  <p className="text-slate-600 font-medium text-sm sm:text-base">Browse green coffee offerings →</p>
-                </a>
-
-                <a
-                  href="https://royalcoffee.com/crown-jewels/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-100 p-6 sm:p-8 border-2 border-slate-300 hover:border-slate-900 transition-all text-center"
-                >
-                  <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-2 sm:mb-3 uppercase tracking-tight">Royal Coffee</h4>
-                  <p className="text-slate-700 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Crown Jewels Program</p>
-                  <p className="text-slate-600 font-medium text-sm sm:text-base">Browse green coffee offerings →</p>
-                </a>
-              </div>
-
-              {/* Intent to Buy Form */}
-              <div className="bg-slate-100 p-6 sm:p-8 space-y-4 sm:space-y-6">
-                <div>
-                  <h4 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight">Enter your intent to buy</h4>
-                  <p className="text-slate-700 text-base sm:text-lg font-medium">
-                    Found a coffee you want? Enter the coffee name. We need 3 commitments before we order and roast.
-                  </p>
-                </div>
-
-                <form onSubmit={handleIntentSubmit} className="space-y-4 sm:space-y-6">
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedCompany("royal")}
-                      className={`flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 transition-all font-bold uppercase tracking-wide text-sm sm:text-base ${
-                        selectedCompany === "royal"
-                          ? "bg-slate-900 border-slate-900 text-white"
-                          : "bg-white border-slate-300 text-slate-900"
-                      }`}
-                    >
-                      Royal Coffee
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedCompany("cafe-imports")}
-                      className={`flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 transition-all font-bold uppercase tracking-wide text-sm sm:text-base ${
-                        selectedCompany === "cafe-imports"
-                          ? "bg-slate-900 border-slate-900 text-white"
-                          : "bg-white border-slate-300 text-slate-900"
-                      }`}
-                    >
-                      Cafe Imports
-                    </button>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <input
-                      type="text"
-                      value={coffeeNameInput}
-                      onChange={(e) => setCoffeeNameInput(e.target.value)}
-                      placeholder="Enter coffee name from importer website"
-                      className="flex-1 px-4 sm:px-5 py-3 sm:py-4 border-2 border-slate-300 text-slate-900 focus:outline-none focus:border-slate-900 font-medium text-base"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="bg-slate-900 text-white px-8 sm:px-10 py-3 sm:py-4 font-black uppercase tracking-wide hover:bg-slate-800 transition-colors text-sm sm:text-base"
-                    >
-                      Submit Intent
-                    </button>
-                  </div>
-                </form>
-
-                {submittedCoffee && (
-                  <div className="p-4 sm:p-6 bg-white border-2 border-slate-900">
-                    <p className="text-slate-900 font-black text-base sm:text-lg">
-                      ✓ Added to intent list! Current commitments: {intentCounts[submittedCoffee]} / 3 needed
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -852,6 +665,7 @@ export default function CoOpPage() {
       </section>
 
       <Footer />
+      <CalculatorModal isOpen={showCalculatorModal} onClose={() => setShowCalculatorModal(false)} />
     </div>
   );
 }

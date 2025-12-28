@@ -19,13 +19,14 @@ export default function Navigation() {
             className="h-8 sm:h-10 w-auto"
           />
         </Link>
-        <div className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-wider text-slate-800">
-          <Link href="/house-batch" className="hover:text-slate-600 transition-colors">House Batch Program</Link>
-          <Link href="/about" className="hover:text-slate-600 transition-colors">About</Link>
-          <Link href="/house-batch" className="bg-slate-900 text-white px-6 py-3 hover:bg-slate-800 transition-colors font-bold">
-            Get Started
-          </Link>
-        </div>
+            <div className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-wider text-slate-800">
+              <Link href="/house-batch" className="hover:text-slate-600 transition-colors">House Batch Program</Link>
+              <Link href="/enthusiast-coop" className="hover:text-slate-600 transition-colors">Enthusiast Co-Op</Link>
+              <Link href="/about" className="hover:text-slate-600 transition-colors">About</Link>
+              <Link href="/house-batch" className="bg-slate-900 text-white px-6 py-3 hover:bg-slate-800 transition-colors font-bold">
+                Get Started
+              </Link>
+            </div>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2 text-slate-900"
@@ -40,21 +41,24 @@ export default function Navigation() {
           </svg>
         </button>
       </div>
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200">
-          <div className="px-4 py-4 space-y-4">
-            <Link href="/house-batch" className="block text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-              House Batch Program
-            </Link>
-            <Link href="/about" className="block text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
-              About
-            </Link>
-            <Link href="/house-batch" className="block bg-slate-900 text-white px-6 py-3 hover:bg-slate-800 transition-colors font-bold text-center text-sm uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>
-              Get Started
-            </Link>
-          </div>
-        </div>
-      )}
+          {mobileMenuOpen && (
+            <div className="md:hidden bg-white border-t border-slate-200">
+              <div className="px-4 py-4 space-y-4">
+                <Link href="/house-batch" className="block text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                  House Batch Program
+                </Link>
+                <Link href="/enthusiast-coop" className="block text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                  Enthusiast Co-Op
+                </Link>
+                <Link href="/about" className="block text-sm font-bold uppercase tracking-wider text-slate-800 hover:text-slate-600 transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/house-batch" className="block bg-slate-900 text-white px-6 py-3 hover:bg-slate-800 transition-colors font-bold text-center text-sm uppercase tracking-wider" onClick={() => setMobileMenuOpen(false)}>
+                  Get Started
+                </Link>
+              </div>
+            </div>
+          )}
     </nav>
   );
 }

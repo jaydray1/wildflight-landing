@@ -26,6 +26,8 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide text-sm sm:text-base">Quick Links</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li><Link href="/house-batch" className="hover:text-white transition-colors font-medium text-sm sm:text-base">House Batch Program</Link></li>
+              <li><Link href="/enthusiast-coop" className="hover:text-white transition-colors font-medium text-sm sm:text-base">Enthusiast Co-Op</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors font-medium text-sm sm:text-base">About</Link></li>
             </ul>
           </div>
           <div className="sm:col-span-2 md:col-span-1">
