@@ -119,20 +119,12 @@ export default function CoOpPage() {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
             <div className="space-y-6 sm:space-y-8 md:space-y-12">
               <div className="space-y-6 sm:space-y-8">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-slate-900 leading-[1.05] tracking-tight">
-                  Coffee co-op
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight">
+                  Fresh coffee. Roasted once a month. Shared locally.
                 </h1>
-                <p className="text-lg sm:text-xl md:text-2xl text-slate-700 leading-relaxed max-w-lg font-medium">
-                  Get fresh roasted coffee monthly at wholesale prices—no subscription, no commitment. Salt Lake area only.
+                <p className="text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed max-w-lg font-medium">
+                  House Batch is WildFlight's monthly small-batch roast for locals who want better coffee without subscriptions, shipping, or markup.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6">
-                  <span className="inline-block px-4 sm:px-5 py-2 sm:py-2.5 bg-slate-900 text-white font-bold uppercase tracking-wide text-xs whitespace-nowrap">
-                    Salt Lake area • local pickup (free)
-                  </span>
-                  <span className="inline-block px-4 sm:px-5 py-2 sm:py-2.5 bg-slate-200 text-slate-800 font-bold uppercase tracking-wide text-xs">
-                    Just in time roasting — we roast only what you order
-                  </span>
-                </div>
               </div>
               <div className="flex flex-col gap-6 sm:gap-8 pt-4 sm:pt-6">
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
@@ -150,15 +142,15 @@ export default function CoOpPage() {
                     className="bg-slate-900 text-white px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 text-lg sm:text-xl font-black uppercase tracking-wide hover:bg-slate-800 transition-all text-center"
                     data-event="coop_join_click"
                   >
-                    Get started (local pickup)
+                    Join the next batch
                   </button>
                   <button
                     onClick={() => {
-                      document.getElementById("house-coop")?.scrollIntoView({ behavior: "smooth" });
+                      document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="bg-white text-slate-900 px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 text-lg sm:text-xl font-black uppercase tracking-wide hover:bg-slate-50 transition-all ring-1 ring-slate-300"
                   >
-                    See sizes & pricing
+                    How it works
                   </button>
                 </div>
               </div>
@@ -194,34 +186,42 @@ export default function CoOpPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-white to-slate-50">
+      <section id="how-it-works" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-white to-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 sm:mb-16 md:mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 md:mb-8 tracking-tight text-center">How It Works</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 md:mb-8 tracking-tight text-center">How House Batch works</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
             <div className="space-y-4 sm:space-y-6">
               <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">1</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Choose how much</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Order by Thursday night</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
-                Pick your monthly amount (2, 5, or 10 lbs). We roast each coffee to the level that brings out its best flavor profile. That's it.
+                Choose 2, 5, or 10 lbs — no subscription, no commitment.
               </p>
             </div>
 
             <div className="space-y-4 sm:space-y-6">
               <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">2</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">We roast on a predictable cadence</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">We roast on the first Saturday</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
-                We roast for the co-op on the first Saturday of every month. Order cutoff is Thursday night. Pickup window: Saturday–Tuesday. You'll get a text when your coffee is ready.
+                One batch. Fresh, intentional, and dialed in.
               </p>
             </div>
 
             <div className="space-y-4 sm:space-y-6">
               <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">3</div>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Pick up locally</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">You get notified</h3>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
-                Free pickup from our Salt Lake City home, or we can deliver locally for a small fee. Either way, you're supporting a local roaster and getting the freshest coffee possible.
+                We'll text you when it's ready.
+              </p>
+            </div>
+
+            <div className="space-y-4 sm:space-y-6">
+              <div className="text-5xl sm:text-6xl font-black text-slate-900 mb-2 sm:mb-4">4</div>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight leading-tight">Pick up locally (or get delivery)</h3>
+              <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
+                Free pickup in Salt Lake City, optional local delivery.
               </p>
             </div>
           </div>
@@ -232,54 +232,40 @@ export default function CoOpPage() {
       <section id="house-coop" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-4 sm:mb-6 md:mb-8 tracking-tight text-center">House Batch Program</h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-slate-700 max-w-4xl mx-auto font-bold text-center leading-relaxed">
-              Monthly batch ordering with curated coffees, always available. We handle sourcing and roasting—you order on roast day and pick it up.
-            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-8 sm:mb-10 md:mb-12 tracking-tight text-center">House pricing, because this is a shared batch.</h2>
           </div>
 
-          {/* Pricing Tiers */}
-          <div className="grid md:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-16 mb-8 sm:mb-12">
-            {[
-              { size: "2 lbs/month", price: "$28", perLb: "$14/lb", desc: "For lighter drinkers or trying us out", monthly: "2" },
-              { size: "5 lbs/month", price: "$62.50", perLb: "$12.50/lb", desc: "Sweet spot for regular households", featured: true, monthly: "5" },
-              { size: "10 lbs/month", price: "$112.50", perLb: "$11.25/lb", desc: "For serious coffee drinkers", monthly: "10" },
-            ].map((tier, i) => (
-              <div key={i} className="space-y-4 sm:space-y-6">
-                {tier.featured && (
-                  <div className="bg-slate-900 text-white text-xs sm:text-sm font-bold uppercase tracking-wide px-3 sm:px-4 py-2 inline-block">
-                    Most Popular
+          {/* Pricing */}
+          <div className="mb-12 sm:mb-16">
+            <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed text-center mb-8 sm:mb-10">
+              Pricing reflects green coffee costs — no markup, no fluff.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+              {[
+                { size: "2 lbs", price: "$28", desc: "Perfect if you brew daily at home.", monthly: "2" },
+                { size: "5 lbs", price: "$62.50", desc: "Best value for households or offices.", featured: true, monthly: "5" },
+                { size: "10 lbs", price: "$112.50", desc: "For teams, workplaces, or serious coffee drinkers.", monthly: "10" },
+              ].map((tier, i) => (
+                <div key={i} className="bg-slate-50 border-2 border-slate-200 p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-6 hover:border-slate-300 transition-colors">
+                  {tier.featured && (
+                    <div className="bg-slate-900 text-white text-xs sm:text-sm font-bold uppercase tracking-wide px-3 sm:px-4 py-2 inline-block">
+                      Most Popular
+                    </div>
+                  )}
+                  <div>
+                    <h4 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight mb-2">{tier.size}</h4>
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">{tier.price}</span>
                   </div>
-                )}
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">{tier.size}</h3>
-                <div>
-                  <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900">{tier.price}</span>
-                  <span className="text-slate-600 ml-2 text-base sm:text-lg font-medium">per month · {tier.perLb}</span>
+                  <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">{tier.desc}</p>
+                  <div className="pt-4 border-t border-slate-200 space-y-2">
+                    <p className="text-slate-600 text-sm sm:text-base font-medium">Fresh roasted monthly</p>
+                    <p className="text-slate-600 text-sm sm:text-base font-medium">Curated selection</p>
+                    <p className="text-slate-600 text-sm sm:text-base font-medium">No subscription</p>
+                  </div>
                 </div>
-                <p className="text-slate-700 text-base sm:text-lg font-medium">{tier.desc}</p>
-                <ul className="space-y-2 sm:space-y-3 text-slate-700 text-base sm:text-lg font-medium">
-                  <li className="flex items-start gap-3">
-                    <span className="text-slate-900 font-black text-xl">✓</span>
-                    <span>Fresh roasted monthly</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-slate-900 font-black text-xl">✓</span>
-                    <span>Curated selection</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-slate-900 font-black text-xl">✓</span>
-                    <span>Roasted to highlight origin flavors</span>
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Pricing Note */}
-          <div className="mb-12 sm:mb-16 bg-slate-50 p-6 sm:p-8 border-l-4 border-slate-900">
-            <p className="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
-              <strong className="font-black text-slate-900">Note on pricing:</strong> Prices may vary month-to-month based on the cost of green coffee beans. We pass through green coffee costs directly—no markup—so you get wholesale pricing that reflects current market rates. You'll see the exact price when you order each month.
-            </p>
+              ))}
+            </div>
           </div>
 
           {/* What You Get */}
