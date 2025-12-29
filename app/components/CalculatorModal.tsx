@@ -1,29 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import {useState} from "react";
 
 interface CalculatorModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProps) {
-  const [cupsPerDay, setCupsPerDay] = useState(0);
-  const [ouncesPerCup, setOuncesPerCup] = useState(12);
-  const [brewingMethod, setBrewingMethod] = useState("filter");
+export default function CalculatorModal({isOpen,onClose}: CalculatorModalProps) {
+  const [cupsPerDay,setCupsPerDay]=useState(0);
+  const [ouncesPerCup,setOuncesPerCup]=useState(12);
+  const [brewingMethod,setBrewingMethod]=useState("filter");
 
-  const brewingRatios: Record<string, number> = {
+  const brewingRatios: Record<string,number>={
     filter: 18,
     "pour-over": 16,
     aeropress: 11,
   };
 
-  const ozToGrams = 28.35;
-  const coffeeToWaterRatio = brewingRatios[brewingMethod] || 16;
-  const coffeeBeansPerCupGrams = (ouncesPerCup * ozToGrams) / coffeeToWaterRatio;
-  const coffeeBeansPerCupOz = coffeeBeansPerCupGrams / ozToGrams;
-  const totalDailyOzBeans = cupsPerDay * coffeeBeansPerCupOz;
-  const monthlyPounds = ((totalDailyOzBeans * 30) / 16).toFixed(1);
+  const ozToGrams=28.35;
+  const coffeeToWaterRatio=brewingRatios[brewingMethod]||16;
+  const coffeeBeansPerCupGrams=(ouncesPerCup*ozToGrams)/coffeeToWaterRatio;
+  const coffeeBeansPerCupOz=coffeeBeansPerCupGrams/ozToGrams;
+  const totalDailyOzBeans=cupsPerDay*coffeeBeansPerCupOz;
+  const monthlyPounds=((totalDailyOzBeans*30)/16).toFixed(1);
 
   if (!isOpen) return null;
 
@@ -54,18 +54,17 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
             </label>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
               {[
-                { id: "filter", label: "Filter/Drip" },
-                { id: "pour-over", label: "Pour-Over" },
-                { id: "aeropress", label: "Aeropress" },
+                {id: "filter",label: "Filter/Drip"},
+                {id: "pour-over",label: "Pour-Over"},
+                {id: "aeropress",label: "Aeropress"},
               ].map((method) => (
                 <button
                   key={method.id}
                   onClick={() => setBrewingMethod(method.id)}
-                  className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold uppercase tracking-wide text-sm sm:text-base ${
-                    brewingMethod === method.id
+                  className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold uppercase tracking-wide text-sm sm:text-base ${brewingMethod===method.id
                       ? "bg-slate-900 border-slate-900 text-white"
-                      : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                  }`}
+                      :"bg-white border-slate-300 text-slate-900 hover:border-slate-900"
+                    }`}
                 >
                   {method.label}
                 </button>
@@ -78,15 +77,14 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
               Cup size (ounces)?
             </label>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-              {[6, 8, 12, 16, 20].map((oz) => (
+              {[6,8,12,16,20].map((oz) => (
                 <button
                   key={oz}
                   onClick={() => setOuncesPerCup(oz)}
-                  className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold text-sm sm:text-base ${
-                    ouncesPerCup === oz
+                  className={`px-6 sm:px-8 py-3 sm:py-4 border-2 transition-all font-bold text-sm sm:text-base ${ouncesPerCup===oz
                       ? "bg-slate-900 border-slate-900 text-white"
-                      : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                  }`}
+                      :"bg-white border-slate-300 text-slate-900 hover:border-slate-900"
+                    }`}
                 >
                   {oz} oz
                 </button>
@@ -99,15 +97,14 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
               Cups per day?
             </label>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-              {[1, 2, 3, 4, 5, 6, 8, 10].map((num) => (
+              {[1,2,3,4,5,6,8,10].map((num) => (
                 <button
                   key={num}
                   onClick={() => setCupsPerDay(num)}
-                  className={`w-14 h-14 sm:w-16 sm:h-16 border-2 transition-all flex items-center justify-center font-black text-base sm:text-lg ${
-                    cupsPerDay === num
+                  className={`w-14 h-14 sm:w-16 sm:h-16 border-2 transition-all flex items-center justify-center font-black text-base sm:text-lg ${cupsPerDay===num
                       ? "bg-slate-900 border-slate-900 text-white"
-                      : "bg-white border-slate-300 text-slate-900 hover:border-slate-900"
-                  }`}
+                      :"bg-white border-slate-300 text-slate-900 hover:border-slate-900"
+                    }`}
                 >
                   {num}
                 </button>
@@ -115,12 +112,12 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
             </div>
           </div>
 
-          {cupsPerDay > 0 && (
+          {cupsPerDay>0&&(
             <div className="mt-8 sm:mt-12 pt-8 sm:pt-12 border-t-2 border-slate-200 text-center">
               <h4 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3 sm:mb-4 uppercase tracking-tight">Your monthly coffee needs</h4>
               <p className="text-4xl sm:text-5xl font-black text-slate-900 mb-3 sm:mb-4">{monthlyPounds} lbs</p>
               <p className="text-slate-600 text-base sm:text-lg font-medium">
-                Based on {cupsPerDay} {cupsPerDay === 1 ? "cup" : "cups"} of {ouncesPerCup}oz coffee per day
+                Based on {cupsPerDay} {cupsPerDay===1? "cup":"cups"} of {ouncesPerCup}oz coffee per day
               </p>
             </div>
           )}
@@ -129,4 +126,5 @@ export default function CalculatorModal({ isOpen, onClose }: CalculatorModalProp
     </div>
   );
 }
+
 
