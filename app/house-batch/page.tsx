@@ -18,14 +18,6 @@ export default function CoOpPage() {
     monthlyUsage: "",
   });
 
-  // Office form state
-  const [officeFormData,setOfficeFormData]=useState({
-    name: "",
-    email: "",
-    teamSize: "",
-  });
-  const [showOfficeForm,setShowOfficeForm]=useState(false);
-
   // Calculator modal state
   const [showCalculatorModal,setShowCalculatorModal]=useState(false);
 
@@ -45,20 +37,6 @@ export default function CoOpPage() {
     alert("Thanks for signing up! We'll be in touch soon.");
     setShowForm(false);
     setFormData({name: "",email: "",zip: "",preference: "pickup",monthlyUsage: ""});
-  };
-
-  const handleOfficeSubmit=(e: React.FormEvent) => {
-    e.preventDefault();
-    // Analytics hook
-    if (typeof window!=="undefined"&&(window as any).dataLayer) {
-      (window as any).dataLayer.push({
-        event: "office_lead_submit",
-      });
-    }
-    // TODO: Integrate with backend/CRM
-    alert("Thanks! We'll contact you about setting up an office co-op.");
-    setShowOfficeForm(false);
-    setOfficeFormData({name: "",email: "",teamSize: ""});
   };
 
   return (
@@ -498,71 +476,6 @@ export default function CoOpPage() {
             </div>
           </div>
 
-          {/* Office Callout */}
-          <div className="bg-slate-900 p-6 sm:p-8 md:p-12 text-white">
-            <div className="flex items-start justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
-              <div className="flex-1">
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 uppercase tracking-tight">Buying for a team or office?</h3>
-                <p className="text-white/90 text-lg sm:text-xl font-medium leading-relaxed">
-                  We can set up custom pricing and larger orders for groups. Perfect for offices, teams, or any group that goes through coffee regularly.
-                </p>
-              </div>
-              <div className="text-4xl sm:text-5xl hidden sm:block">🏢</div>
-            </div>
-
-            {!showOfficeForm? (
-              <button
-                onClick={() => setShowOfficeForm(true)}
-                className="bg-white text-slate-900 px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-black uppercase tracking-wide hover:bg-slate-100 transition-colors"
-              >
-                Get Office Pricing
-              </button>
-            ):(
-              <form onSubmit={handleOfficeSubmit} className="space-y-4 sm:space-y-6">
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    required
-                    value={officeFormData.name}
-                    onChange={(e) => setOfficeFormData({...officeFormData,name: e.target.value})}
-                    className="px-4 sm:px-5 py-3 sm:py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-white font-medium text-base"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    required
-                    value={officeFormData.email}
-                    onChange={(e) => setOfficeFormData({...officeFormData,email: e.target.value})}
-                    className="px-4 sm:px-5 py-3 sm:py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-white font-medium text-base"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Team Size"
-                    required
-                    value={officeFormData.teamSize}
-                    onChange={(e) => setOfficeFormData({...officeFormData,teamSize: e.target.value})}
-                    className="px-4 sm:px-5 py-3 sm:py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-white font-medium text-base sm:col-span-2 md:col-span-1"
-                  />
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <button
-                    type="submit"
-                    className="bg-white text-slate-900 px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-black uppercase tracking-wide hover:bg-slate-100 transition-colors"
-                  >
-                    Submit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowOfficeForm(false)}
-                    className="bg-transparent border-2 border-white text-white px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-black uppercase tracking-wide hover:bg-white/10 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
         </div>
       </section>
 
