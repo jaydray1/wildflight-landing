@@ -6,7 +6,8 @@ import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import AdventureWeather from "../../components/AdventureWeather";
 import PortableText from "../../components/PortableText";
-import { getFieldNoteBySlug } from "../../../lib/sanity.queries";
+import BrewGuides from "../../components/BrewGuides";
+import { getFieldNoteBySlug, getGuides } from "../../../lib/sanity.queries";
 import { urlFor } from "../../../lib/sanity.queries";
 
 interface PageProps {
@@ -15,7 +16,10 @@ interface PageProps {
 
 export default async function IntelArticlePage({ params }: PageProps) {
   const { slug } = await params;
-  const article = await getFieldNoteBySlug(slug);
+  const [article, allGuides] = await Promise.all([
+    getFieldNoteBySlug(slug),
+    getGuides(),
+  ]);
 
   if (!article) {
     notFound();
@@ -107,6 +111,11 @@ export default async function IntelArticlePage({ params }: PageProps) {
             <article className="prose prose-slate max-w-none">
               <PortableText content={article.content} />
             </article>
+          </div>
+
+          {/* Brew Guides */}
+          <div className="mt-8">
+            <BrewGuides guides={allGuides} associatedGuide={article.associatedGuide || null} />
           </div>
 
           {/* Gear List */}

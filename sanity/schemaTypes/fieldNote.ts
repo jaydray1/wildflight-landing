@@ -115,6 +115,13 @@ export default {
       ],
     },
     {
+      name: 'associatedGuide',
+      title: 'Associated Guide',
+      type: 'reference',
+      to: [{ type: 'guide' }],
+      description: 'Link to a related brew guide',
+    },
+    {
       name: 'featured',
       title: 'Featured',
       type: 'boolean',

@@ -30,6 +30,26 @@ export interface FieldNote {
     item: string;
     details?: string;
   }>;
+  associatedGuide?: Guide | null;
+}
+
+export interface Guide {
+  _id: string;
+  title: string;
+  type: 'drip' | 'espresso' | 'milk';
+  slug: {
+    current: string;
+  };
+  specs?: {
+    ratio?: string;
+    grind?: string;
+    waterTemp?: string;
+    brewTime?: string;
+  };
+  steps?: Array<{
+    stepTitle: string;
+    instruction: string;
+  }>;
 }
 
 export async function getFieldNotes(): Promise<FieldNote[]> {
@@ -63,7 +83,15 @@ export async function getFieldNoteBySlug(slug: string): Promise<FieldNote | null
     content,
     mainImage,
     techSpecs,
-    gearList
+    gearList,
+    associatedGuide-> {
+      _id,
+      title,
+      type,
+      slug,
+      specs,
+      steps
+    }
   }`;
   
   return await client.fetch(query, { slug });
@@ -85,5 +113,44 @@ export async function getFeaturedFieldNote(): Promise<FieldNote | null> {
   }`;
   
   return await client.fetch(query);
+}
+
+export async function getGuides(): Promise<Guide[]> {
+  return await client.fetch(
+    `*[_type == "guide"] | order(title asc) {
+      _id,
+      title,
+      type,
+      slug,
+      specs,
+      steps
+    }`
+  );
+}
+
+export async function getGuideBySlug(slug: string): Promise<Guide | null> {
+  const query = `*[_type == "guide" && slug.current == $slug][0] {
+    _id,
+    title,
+    type,
+    slug,
+    specs,
+    steps
+  }`;
+  
+  return await client.fetch(query, { slug });
+}
+
+export async function getGuideByType(type: 'drip' | 'espresso' | 'milk'): Promise<Guide | null> {
+  const query = `*[_type == "guide" && type == $type][0] {
+    _id,
+    title,
+    type,
+    slug,
+    specs,
+    steps
+  }`;
+  
+  return await client.fetch(query, { type });
 }
 

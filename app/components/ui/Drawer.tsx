@@ -32,16 +32,16 @@ export default function Drawer({ isOpen, onClose, children, title }: DrawerProps
       />
 
       {/* Drawer */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-2xl z-50 max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between z-10">
-          {title && <h2 className="text-xl font-black text-slate-900">{title}</h2>}
+      <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-2xl z-50 max-h-[90vh] overflow-y-auto border-2 border-[#222222]">
+        <div className="sticky top-0 bg-white border-b-2 border-[#222222] px-6 py-4 flex items-center justify-between z-10">
+          {title && <h2 className="text-xl font-black text-[#222222]">{title}</h2>}
           <button
             onClick={onClose}
-            className="ml-auto p-2 hover:bg-slate-100 rounded-full transition-colors"
+            className="ml-auto p-2 hover:bg-[#F5F5F5] rounded-full transition-colors"
             aria-label="Close"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
