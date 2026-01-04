@@ -12,7 +12,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/Logo_v2_LinkedIn400x300.png"
+            src="/images/logoWithText_v1.png"
             alt="Wildflight Coffee"
             width={120}
             height={90}

@@ -76,3 +76,7 @@ After adding a post in Sanity:
 2. Click on a post to view the full article at `/intel/[slug]`
 3. Featured posts appear at the top of the list
 
+
+
+
+

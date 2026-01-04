@@ -36,3 +36,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
   );
 }
 
+
+
+
+
